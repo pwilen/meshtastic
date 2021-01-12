@@ -6,7 +6,6 @@ import time
 import urllib.parse
 import RPi.GPIO as GPIO
 import datetime
-import subprocess
 import meshtastic
 
 # Mqtt
@@ -48,7 +47,7 @@ def printtime(): # Used for debug
 def sendmqtt(mess):
     try:
         mqttc.connect(url.hostname, url.port)
-        mqttc.publish("movement/touch", mess)
+        mqttc.publish("movement", mess)
         sleep(5)
     except:
         pass
@@ -83,9 +82,8 @@ try:
     if Current_State==1 and Previous_State==0:
       # PIR is triggered
       print("Motion detected!")
-      #sendmqtt("Motion detected")
+      sendmqtt("Motion detected")
       sendtomesh("Motion detected")
-      #subprocess.call('/home/pi/wakeup.sh', shell=True)
       # Record previous state
       Previous_State=1
     elif Current_State==0 and Previous_State==1:
@@ -96,7 +94,6 @@ try:
     # Wait for 5 seconds
     time.sleep(5)
     print("Sleep 5 seconds")
-    #subprocess.call('/home/pi/sleep.sh', shell=True)
 except KeyboardInterrupt:
   print("Quit")
   # Reset GPIO settings
