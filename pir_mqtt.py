@@ -11,9 +11,9 @@ import meshtastic
 
 # Mqtt
 mqttc = paho.Client()
-url_str = 'mqtt://192.168.68.114:1883'
+url_str = 'mqtt://mqtturl:1883'
 url = urllib.parse.urlparse(url_str)
-mqttc.username_pw_set("mqtthass", "mqttpass")
+mqttc.username_pw_set("mqttuser", "mqttpassword")
 
 # Use BCM GPIO references
 # instead of physical pin numbers
